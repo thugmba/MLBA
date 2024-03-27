@@ -1,4 +1,4 @@
-# Brian Kim
+# Machine Learning for Business Analytics
 
 # Purpose
 
