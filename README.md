@@ -1,5 +1,7 @@
 # Machine Learning for Business Analytics
 
+![](larry.gif)
+
 # Purpose
 
 Looking for junior data analyst position in healthcare indstury
@@ -24,3 +26,4 @@ Looking for junior data analyst position in healthcare indstury
 - Corporate Accounting
 - Intermediate Chinese
 - Beginner Spanish
+
