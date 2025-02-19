@@ -6,10 +6,18 @@ Looking for junior data analyst position in healthcare indstury
 
 # Education
 
-- Tunghai University
-  - GBMA
-- NCHU
+- asdf
+- asdf
+- asdf
 
 # Experience
 
-- Academia Sinica
+-djdjd
+-djdjdj
+
+# Skills
+
+1. sksks
+2. dkdkd
+3. dkdkd
+
