@@ -12,3 +12,15 @@ Looking for junior data analyst position in healthcare indstury
 # Experience
 
 - None
+
+# Skills
+
+- R Language
+- Markdown
+- Quarto
+- Python
+- Marketing & Sales
+- Corporate Finance
+- Corporate Accounting
+- Intermediate Chinese
+- Beginner Spanish
