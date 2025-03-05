@@ -1,6 +1,6 @@
 # Daven
 
-![][D:\Daven\Univ\Python\Machine Learning Business Analyst\MLBA\Pic\larry.gif]
+![][MLBA/Pic/larry.gif]
 
 # Purpose
 
