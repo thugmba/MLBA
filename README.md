@@ -1,6 +1,6 @@
 # Daven
 
-![][https://github.com/azuredav/MLBA/blob/main/Pic/larry.gif?raw=true]
+![][D:\Daven\Univ\Python\Machine Learning Business Analyst\MLBA\Pic\larry.gif]
 
 # Purpose
 
