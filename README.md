@@ -1,6 +1,6 @@
 # Daven
 
-![][https://github.com/azuredav/MLBA/blob/main/Pic/larry.gif]
+![][https://github.com/azuredav/MLBA/blob/main/Pic/larry.gif?raw=true]
 
 # Purpose
 
