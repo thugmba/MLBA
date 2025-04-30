@@ -1,4 +1,5 @@
-# Read & Modify CSV
+# 
+# Sorting CSV
 # 03/26/2025
 #
 
@@ -14,4 +15,3 @@ raw_data["Price"].sort_values()
 
 raw_data.sort_values("Price", ascending = False)
 
-# 3. Output
