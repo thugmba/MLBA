@@ -4,7 +4,7 @@
 # 2025/5/14
 #
 
-# Import Libraries \
+# Import Libraries 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,7 +14,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 # Load Data
 za = pd.read_csv('zara.csv')
-X = za[['price']]  
+X = za[['price']] 
 y = za['Sales Volume']              
 
 # Split the dataset
