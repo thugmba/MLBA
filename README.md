@@ -1,4 +1,6 @@
-# Machine Learning for Business Analytics
+# Daven
+
+![](https://github.com/azuredav/MLBA/blob/main/Pic/larry.gif)
 
 # Purpose
 
@@ -6,19 +8,25 @@ Looking for junior data analyst position in healthcare indstury
 
 # Education
 
-- dkdkdkdkdkdkdkdkdk
-- asdf
-- asdf
-- asdf
+- Tunghai University
+  - IB
 
 # Experience
 
--djdjd
--djdjdj
+- None
 
 # Skills
 
-1. sksks
-2. dkdkd
-3. dkdkd
+- R Language
+- Markdown
+- Quarto
+- Python
+- Marketing & Sales
+- Corporate Finance
+- Corporate Accounting
+- Intermediate Chinese
+- Beginner Spanish
 
+
+
+[def]: https://github.com/azuredav/MLBA/blob/main/Pic/larry.gif
