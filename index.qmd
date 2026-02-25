@@ -1,0 +1,2752 @@
+---
+title: "Machine Learning for Business Analytics"
+subtitle: "Lecture Notes — Python & Machine Learning for Business Students"
+date: today
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-depth: 3
+    toc-title: "Contents"
+    theme: cosmo
+    code-fold: show
+    code-tools: true
+    highlight-style: github
+    number-sections: true
+    smooth-scroll: true
+execute:
+  warning: false
+  message: false
+  echo: true
+---
+
+```{python}
+#| echo: false
+# Setup cell — install/import common packages used throughout
+import warnings
+warnings.filterwarnings("ignore")
+```
+
+---
+
+> **Welcome!** These notes assume **no prior Python experience**. Each module
+> builds on the previous one. Work through the tasks in every section — hands-on
+> practice is the fastest path to understanding.
+
+---
+
+# Module 1: Python Programming Fundamentals {#sec-module1}
+
+Python is one of the most popular programming languages for data analysis and
+machine learning. It reads almost like plain English, which makes it an excellent
+first language for business students.
+
+## Section 1.1 — Python Basics and Conditional Statements {#sec-11}
+
+### Variables and Data Types
+
+A **variable** is a named container that holds a value. Python automatically
+detects the type of data you store.
+
+```{python}
+# Assign values to variables
+company = "Acme Corp"          # str  — text
+revenue = 4_500_000            # int  — whole number
+profit_margin = 0.18           # float — decimal number
+is_profitable = True           # bool — True or False
+
+# Print to screen
+print("Company:", company)
+print("Revenue: $", revenue)
+print("Profit margin:", profit_margin)
+print("Profitable?", is_profitable)
+```
+
+```{python}
+# Check the type of a variable
+print(type(revenue))
+print(type(profit_margin))
+print(type(company))
+```
+
+### Basic Arithmetic
+
+```{python}
+price = 250        # unit price in dollars
+units_sold = 1200  # units sold this quarter
+
+total_sales = price * units_sold
+discount = total_sales * 0.05          # 5 % discount
+net_sales  = total_sales - discount
+
+print(f"Total Sales : ${total_sales:,}")
+print(f"Discount    : ${discount:,.2f}")
+print(f"Net Sales   : ${net_sales:,.2f}")
+```
+
+> **f-strings** (formatted string literals) let you embed variable values
+> directly inside a string using `{variable_name}`. They are the recommended
+> way to format output in modern Python.
+
+### Conditional Statements
+
+Conditional statements let your program **make decisions**.
+
+```{python}
+# if / elif / else
+quarterly_profit = 85_000
+
+if quarterly_profit > 100_000:
+    print("Outstanding quarter — bonus approved.")
+elif quarterly_profit > 50_000:
+    print("Good quarter — on target.")
+elif quarterly_profit > 0:
+    print("Marginal quarter — review costs.")
+else:
+    print("Loss this quarter — action required.")
+```
+
+```{python}
+# Combining conditions with 'and' / 'or'
+customer_age  = 35
+account_value = 120_000
+
+if customer_age >= 30 and account_value >= 100_000:
+    print("Eligible for premium wealth management services.")
+else:
+    print("Standard account services apply.")
+```
+
+### Comparison Operators
+
+| Operator | Meaning           | Example          |
+|----------|-------------------|------------------|
+| `==`     | Equal to          | `x == 10`        |
+| `!=`     | Not equal to      | `x != 10`        |
+| `>`      | Greater than      | `sales > 1000`   |
+| `<`      | Less than         | `cost < budget`  |
+| `>=`     | Greater or equal  | `age >= 18`      |
+| `<=`     | Less or equal     | `risk <= 0.05`   |
+
+---
+
+### Student Task 1.1
+
+A retail store applies the following discount policy:
+
+- Purchase ≥ \$500 → 10% discount
+- Purchase ≥ \$200 and < \$500 → 5% discount
+- Purchase < \$200 → no discount
+
+Write a Python program that:
+
+1. Stores a purchase amount in a variable.
+2. Uses `if / elif / else` to determine the discount rate.
+3. Calculates and prints the final price after discount.
+4. Test your code with at least three different purchase amounts.
+
+```{python}
+# Your code here
+purchase_amount = 350   # change this value to test
+
+# Write your conditional logic below
+```
+
+---
+
+### Evaluation Questions 1.1
+
+1. What is the output of `print(type(3.14))`?
+   a) `<class 'int'>`
+   b) `<class 'float'>` (correct)
+   c) `<class 'str'>`
+   d) `<class 'bool'>`
+
+2. Which operator checks whether two values are **equal** in Python?
+   a) `=`
+   b) `===`
+   c) `==` (correct)
+   d) `!=`
+
+3. In the code `if x > 10 and y < 5:`, the block executes when:
+   a) Either condition is true
+   b) Both conditions are true (correct)
+   c) Neither condition is true
+   d) Only the first condition is true
+
+4. What does an **f-string** do?
+   a) Forces Python to use floating-point arithmetic
+   b) Filters a string for special characters
+   c) Embeds variable values inside a string literal (correct)
+   d) Formats a file for output
+
+5. What value does `is_profitable = not True` store?
+   a) `True`
+   b) `None`
+   c) `0`
+   d) `False` (correct)
+
+---
+
+## Section 1.2 — Loops in Python {#sec-12}
+
+Loops allow you to **repeat actions** without rewriting the same code. This is
+essential when processing large datasets.
+
+### The `for` Loop
+
+```{python}
+# Iterate over a list of items
+products = ["Laptop", "Tablet", "Smartphone", "Monitor"]
+
+for product in products:
+    print(f"Processing inventory for: {product}")
+```
+
+```{python}
+# range() generates a sequence of numbers
+# range(start, stop, step)  — stop is exclusive
+print("Sales Report — Q1 Weeks")
+for week in range(1, 13):          # weeks 1 through 12
+    weekly_target = 50_000
+    print(f"  Week {week:>2}: Target = ${weekly_target:,}")
+```
+
+```{python}
+# Accumulate a running total
+sales_data = [12_000, 18_500, 9_300, 22_100, 15_600]
+total = 0
+
+for sale in sales_data:
+    total += sale              # shorthand for total = total + sale
+
+print(f"Total Sales: ${total:,}")
+print(f"Average Sale: ${total / len(sales_data):,.2f}")
+```
+
+### The `while` Loop
+
+A `while` loop runs **as long as a condition remains True**.
+
+```{python}
+# Simulate compounding interest until a target is reached
+balance  = 10_000    # initial investment
+rate     = 0.07      # 7 % annual return
+target   = 20_000
+years    = 0
+
+while balance < target:
+    balance *= (1 + rate)
+    years   += 1
+
+print(f"Investment doubles in {years} years.")
+print(f"Final balance: ${balance:,.2f}")
+```
+
+### Loop Control: `break` and `continue`
+
+```{python}
+# break — exit the loop early
+sales_figures = [8_200, 11_500, 6_800, -500, 14_200, 9_900]
+
+print("Validating sales records:")
+for i, sale in enumerate(sales_figures):
+    if sale < 0:
+        print(f"  ERROR: Negative sale at record {i} — stopping validation.")
+        break
+    print(f"  Record {i}: ${sale:,} — OK")
+```
+
+```{python}
+# continue — skip the current iteration
+transactions = [200, -50, 450, -30, 1200, 80]
+
+print("Positive transactions only:")
+for t in transactions:
+    if t < 0:
+        continue                      # skip negative entries
+    print(f"  ${t:,}")
+```
+
+### List Comprehensions (Compact Loops)
+
+```{python}
+prices = [100, 250, 75, 400, 180]
+
+# Traditional loop
+discounted_traditional = []
+for p in prices:
+    discounted_traditional.append(p * 0.9)
+
+# List comprehension — same result, one line
+discounted = [p * 0.9 for p in prices]
+
+print("Original prices:", prices)
+print("Discounted (10%):", discounted)
+```
+
+---
+
+### Student Task 1.2
+
+Your company recorded daily website visitors for two weeks:
+
+```
+[1_250, 980, 1_430, 2_100, 1_890, 760, 430,
+ 1_320, 1_050, 1_780, 2_250, 1_970, 810, 510]
+```
+
+Using loops, calculate and print:
+
+1. The **total** number of visitors over the two weeks.
+2. The **average** daily visitors (rounded to the nearest whole number).
+3. The **number of days** with more than 1,500 visitors.
+4. The **highest** and **lowest** single-day visitor counts.
+
+```{python}
+# Your code here
+daily_visitors = [1_250, 980, 1_430, 2_100, 1_890, 760, 430,
+                  1_320, 1_050, 1_780, 2_250, 1_970, 810, 510]
+```
+
+---
+
+### Evaluation Questions 1.2
+
+1. What does `range(2, 10, 2)` produce?
+   a) `[2, 4, 6, 8]` (correct)
+   b) `[2, 4, 6, 8, 10]`
+   c) `[1, 3, 5, 7, 9]`
+   d) `[2, 10, 2]`
+
+2. The statement `total += sale` is equivalent to:
+   a) `total = sale`
+   b) `total = total - sale`
+   c) `total = total * sale`
+   d) `total = total + sale` (correct)
+
+3. Which statement **immediately exits** a loop?
+   a) `exit`
+   b) `continue`
+   c) `break` (correct)
+   d) `stop`
+
+4. A `while` loop is best used when:
+   a) You need to iterate over a fixed list
+   b) The number of iterations depends on a condition (correct)
+   c) You always need exactly 10 iterations
+   d) You want to iterate over a dictionary
+
+5. What is the output of `[x**2 for x in range(1, 4)]`?
+   a) `[1, 4, 9]` (correct)
+   b) `[1, 2, 3]`
+   c) `[2, 4, 6]`
+   d) `[1, 8, 27]`
+
+---
+
+## Section 1.3 — Lists, Dictionaries, and Tuples {#sec-13}
+
+Python's built-in data structures let you organise and manipulate collections
+of data — a critical skill before working with datasets.
+
+### Lists
+
+A **list** is an ordered, mutable (changeable) sequence.
+
+```{python}
+# Create and access a list
+sales_regions = ["North", "South", "East", "West", "Central"]
+
+print("First region:", sales_regions[0])       # index starts at 0
+print("Last region:", sales_regions[-1])        # -1 = last item
+print("Regions 1–3:", sales_regions[1:3])       # slicing
+```
+
+```{python}
+# Modify a list
+quarterly_sales = [120_000, 145_000, 98_000, 162_000]
+
+quarterly_sales.append(175_000)         # add to end
+quarterly_sales.insert(0, 110_000)      # insert at position 0
+quarterly_sales.remove(98_000)          # remove by value
+
+print("Updated sales:", quarterly_sales)
+print("Total periods:", len(quarterly_sales))
+print(f"Max quarter: ${max(quarterly_sales):,}")
+```
+
+```{python}
+# Sorting lists
+scores = [88, 72, 95, 61, 84, 99, 77]
+scores_sorted = sorted(scores, reverse=True)   # high to low
+print("Ranked scores:", scores_sorted)
+```
+
+### Dictionaries
+
+A **dictionary** maps **keys** to **values** — ideal for structured records.
+
+```{python}
+# Create a dictionary for a customer record
+customer = {
+    "id"          : "C-10482",
+    "name"        : "GlobalTech Ltd",
+    "industry"    : "Technology",
+    "annual_spend": 285_000,
+    "active"      : True
+}
+
+# Access values by key
+print("Customer:", customer["name"])
+print("Industry:", customer["industry"])
+print(f"Spend:   ${customer['annual_spend']:,}")
+```
+
+```{python}
+# Update, add, and delete entries
+customer["annual_spend"] = 310_000          # update
+customer["account_manager"] = "Sarah Lee"   # add new key
+del customer["id"]                          # remove key
+
+print(customer)
+```
+
+```{python}
+# Iterate over a dictionary
+product_inventory = {
+    "Laptop"     : 45,
+    "Tablet"     : 120,
+    "Smartphone" : 89,
+    "Monitor"    : 32
+}
+
+print("Current Inventory:")
+for product, qty in product_inventory.items():
+    status = "LOW STOCK" if qty < 40 else "OK"
+    print(f"  {product:<12}: {qty:>4} units  [{status}]")
+```
+
+### Tuples
+
+A **tuple** is like a list but **immutable** (cannot be changed after creation).
+Use tuples for fixed data such as coordinates, RGB colours, or database records.
+
+```{python}
+# Tuple examples
+location      = (40.7128, -74.0060)        # New York lat/lon
+fiscal_year   = (2024, "Q4", "USD")
+rgb_brand     = (0, 102, 204)              # company brand colour
+
+print("Headquarters:", location)
+print("Fiscal period:", fiscal_year)
+
+# Unpack a tuple into variables
+lat, lon = location
+print(f"Latitude: {lat}, Longitude: {lon}")
+```
+
+```{python}
+# List of tuples — useful for tabular data
+transactions = [
+    ("2024-01-05", "Invoice #1001", 15_200),
+    ("2024-01-12", "Invoice #1002",  8_750),
+    ("2024-01-20", "Invoice #1003", 22_400),
+]
+
+print(f"{'Date':<12} {'Reference':<18} {'Amount':>10}")
+print("-" * 42)
+for date, ref, amount in transactions:
+    print(f"{date:<12} {ref:<18} ${amount:>9,}")
+```
+
+### Nested Structures
+
+```{python}
+# A list of dictionaries — mimics a simple database table
+employees = [
+    {"name": "Alice",   "dept": "Sales",   "salary": 72_000},
+    {"name": "Bob",     "dept": "Finance", "salary": 85_000},
+    {"name": "Carol",   "dept": "Sales",   "salary": 69_000},
+    {"name": "David",   "dept": "IT",      "salary": 92_000},
+]
+
+# Filter: Sales department only
+sales_team = [e for e in employees if e["dept"] == "Sales"]
+avg_sales_salary = sum(e["salary"] for e in sales_team) / len(sales_team)
+
+print(f"Average Sales Salary: ${avg_sales_salary:,.2f}")
+```
+
+---
+
+### Student Task 1.3
+
+You are given the following customer data as a list of dictionaries:
+
+```python
+customers = [
+    {"name": "Apex Corp",    "region": "East",  "purchases": 34_000},
+    {"name": "BlueSky LLC",  "region": "West",  "purchases": 87_500},
+    {"name": "CoreTech",     "region": "East",  "purchases": 12_200},
+    {"name": "Delta Group",  "region": "West",  "purchases": 56_000},
+    {"name": "Edge Systems", "region": "East",  "purchases": 29_800},
+]
+```
+
+Write code to:
+
+1. Print the name and purchase amount of all **East** region customers.
+2. Calculate and print the **total purchases** for the West region.
+3. Add a new customer `{"name": "Fusion Inc", "region": "North", "purchases": 44_000}` to the list.
+4. Find and print the name of the customer with the **highest** total purchases.
+
+```{python}
+# Your code here
+customers = [
+    {"name": "Apex Corp",    "region": "East",  "purchases": 34_000},
+    {"name": "BlueSky LLC",  "region": "West",  "purchases": 87_500},
+    {"name": "CoreTech",     "region": "East",  "purchases": 12_200},
+    {"name": "Delta Group",  "region": "West",  "purchases": 56_000},
+    {"name": "Edge Systems", "region": "East",  "purchases": 29_800},
+]
+```
+
+---
+
+### Evaluation Questions 1.3
+
+1. What is the index of the **first** element in a Python list?
+   a) `1`
+   b) `-1`
+   c) `0` (correct)
+   d) `None`
+
+2. Which method adds an item to the **end** of a list?
+   a) `insert()`
+   b) `append()` (correct)
+   c) `add()`
+   d) `push()`
+
+3. What distinguishes a tuple from a list?
+   a) Tuples use curly braces
+   b) Tuples are faster to print
+   c) Tuples cannot be changed after creation (correct)
+   d) Tuples can only hold numbers
+
+4. How do you access the value for key `"salary"` in a dictionary `emp`?
+   a) `emp.salary`
+   b) `emp["salary"]` (correct)
+   c) `emp{salary}`
+   d) `emp->salary`
+
+5. Which expression creates a list of even numbers from 2 to 10?
+   a) `[x for x in range(1, 10) if x % 2 != 0]`
+   b) `[x for x in range(2, 11, 2)]` (correct)
+   c) `[x for x in range(0, 10)]`
+   d) `[x for x in range(2, 10, 3)]`
+
+---
+
+## Section 1.4 — Introduction to NumPy and Pandas {#sec-14}
+
+**NumPy** and **Pandas** are the two foundational libraries for data work in
+Python. NumPy provides fast numerical arrays; Pandas provides spreadsheet-like
+tables called DataFrames.
+
+### NumPy Basics
+
+```{python}
+import numpy as np
+
+# Create arrays
+prices   = np.array([199, 299, 149, 399, 249])
+units    = np.array([120,  85, 200,  60, 140])
+
+# Element-wise operations (no loop needed!)
+revenue  = prices * units
+print("Revenue per product:", revenue)
+print(f"Total revenue:  ${revenue.sum():,}")
+print(f"Average revenue: ${revenue.mean():,.2f}")
+print(f"Std deviation:   ${revenue.std():,.2f}")
+```
+
+```{python}
+# 2-D array — think of it as a matrix / mini-table
+# Rows: products, Columns: Q1, Q2, Q3, Q4
+sales_matrix = np.array([
+    [12_000, 15_000, 11_000, 18_000],
+    [ 9_500, 10_200,  8_900, 12_500],
+    [22_000, 24_500, 20_000, 27_000],
+])
+
+print("Sales matrix shape:", sales_matrix.shape)       # (3, 4)
+print("Annual totals per product:", sales_matrix.sum(axis=1))
+print("Quarterly totals:         ", sales_matrix.sum(axis=0))
+```
+
+### Pandas Basics
+
+```{python}
+import pandas as pd
+
+# Create a DataFrame from a dictionary — like an Excel table in Python
+data = {
+    "Product"    : ["Laptop", "Tablet", "Smartphone", "Monitor", "Keyboard"],
+    "Category"   : ["Electronics", "Electronics", "Electronics", "Electronics", "Accessories"],
+    "Price"      : [999, 499, 799, 349, 89],
+    "Units_Sold" : [120,  85, 200,  60, 310],
+    "Rating"     : [4.5, 4.2, 4.7, 4.0, 4.3],
+}
+
+df = pd.DataFrame(data)
+print(df)
+```
+
+```{python}
+# Basic DataFrame inspection
+print("Shape:", df.shape)                # (rows, columns)
+print("\nData types:\n", df.dtypes)
+print("\nSummary statistics:")
+print(df.describe())
+```
+
+```{python}
+# Computed columns
+df["Revenue"] = df["Price"] * df["Units_Sold"]
+df["Revenue_Share"] = (df["Revenue"] / df["Revenue"].sum() * 100).round(1)
+
+print(df[["Product", "Revenue", "Revenue_Share"]])
+```
+
+```{python}
+# Filtering rows
+high_rating = df[df["Rating"] >= 4.5]
+print("\nTop-rated products:")
+print(high_rating[["Product", "Rating", "Revenue"]])
+```
+
+```{python}
+# Sorting
+top_revenue = df.sort_values("Revenue", ascending=False)
+print("\nProducts ranked by revenue:")
+print(top_revenue[["Product", "Revenue"]].to_string(index=False))
+```
+
+```{python}
+# Grouping and aggregation
+category_summary = df.groupby("Category").agg(
+    Total_Revenue  = ("Revenue", "sum"),
+    Avg_Rating     = ("Rating",  "mean"),
+    Product_Count  = ("Product", "count")
+).reset_index()
+
+print("\nCategory Summary:")
+print(category_summary)
+```
+
+### Reading Data from Files
+
+In practice, data arrives as CSV files or Excel spreadsheets.
+
+```{python}
+#| eval: false
+# Reading a CSV file (not run — example only)
+df_sales = pd.read_csv("sales_data.csv")
+
+# Reading an Excel file
+df_sales = pd.read_excel("sales_data.xlsx", sheet_name="Q1")
+
+# Quick look at the first 5 rows
+df_sales.head()
+```
+
+---
+
+### Student Task 1.4
+
+Create a Pandas DataFrame representing **five employees** with the following
+columns: `Name`, `Department`, `Years_Experience`, `Salary`.
+
+Then write code to:
+
+1. Display basic summary statistics for numeric columns.
+2. Add a column `Salary_Grade` — `"Senior"` if `Years_Experience >= 5`, else `"Junior"`.
+3. Filter and display only Senior employees.
+4. Calculate the average salary by department.
+5. Sort and display all employees from highest to lowest salary.
+
+```{python}
+# Your code here
+import pandas as pd
+
+# Create your employee DataFrame here
+```
+
+---
+
+### Evaluation Questions 1.4
+
+1. Which NumPy method calculates the **mean** of an array?
+   a) `np.total()`
+   b) `np.mean()` (correct)
+   c) `np.avg()`
+   d) `np.center()`
+
+2. What does `df.shape` return for a DataFrame with 100 rows and 5 columns?
+   a) `[100, 5]`
+   b) `100 x 5`
+   c) `(100, 5)` (correct)
+   d) `(5, 100)`
+
+3. Which method shows the **first 5 rows** of a DataFrame?
+   a) `df.top()`
+   b) `df.first()`
+   c) `df.show()`
+   d) `df.head()` (correct)
+
+4. `df[df["Sales"] > 10000]` is an example of:
+   a) Sorting a DataFrame
+   b) Filtering rows based on a condition (correct)
+   c) Deleting rows with values over 10,000
+   d) Replacing values over 10,000
+
+5. What does `df.groupby("Region").agg({"Sales": "sum"})` produce?
+   a) Individual rows where Region equals "Sales"
+   b) Total sales for each region (correct)
+   c) Average sales across all regions
+   d) A sorted list of regions
+
+---
+
+# Module 2: Exploratory Data Analysis (EDA) {#sec-module2}
+
+Before building any model, you must understand your data. EDA is the process of
+examining datasets to summarise their main characteristics, spot problems, and
+uncover patterns.
+
+## Section 2.1 — Handling Missing Data {#sec-21}
+
+Real-world business data is almost always incomplete. Learning how to detect
+and handle missing values is a fundamental skill.
+
+```{python}
+import pandas as pd
+import numpy as np
+
+# Simulate a customer dataset with missing values
+np.random.seed(42)
+
+n = 200
+data = {
+    "CustomerID"  : range(1001, 1001 + n),
+    "Age"         : np.where(np.random.rand(n) < 0.08, np.nan,
+                             np.random.randint(22, 70, n).astype(float)),
+    "Income"      : np.where(np.random.rand(n) < 0.12, np.nan,
+                             np.random.normal(65_000, 20_000, n).round(-2)),
+    "Purchases"   : np.random.randint(1, 50, n),
+    "Segment"     : np.where(np.random.rand(n) < 0.05, np.nan,
+                             np.random.choice(["Bronze","Silver","Gold"], n)),
+}
+
+df = pd.DataFrame(data)
+print("Dataset shape:", df.shape)
+print(df.head())
+```
+
+### Detecting Missing Values
+
+```{python}
+# Count missing values per column
+missing = df.isnull().sum()
+pct_missing = (missing / len(df) * 100).round(1)
+
+missing_report = pd.DataFrame({
+    "Missing_Count"  : missing,
+    "Missing_Pct_%"  : pct_missing
+})
+print(missing_report[missing_report["Missing_Count"] > 0])
+```
+
+```{python}
+# Visualise missingness pattern
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(8, 3))
+ax.bar(missing_report.index, missing_report["Missing_Pct_%"], color="steelblue")
+ax.set_title("Percentage of Missing Values per Column")
+ax.set_ylabel("Missing (%)")
+ax.set_xlabel("Column")
+plt.tight_layout()
+plt.show()
+```
+
+### Strategies for Handling Missing Data
+
+| Strategy | When to Use |
+|---|---|
+| **Drop rows** | Very few rows affected and data is large |
+| **Fill with mean/median** | Numerical columns, missing at random |
+| **Fill with mode** | Categorical columns |
+| **Forward/backward fill** | Time-series data |
+| **Predictive imputation** | Advanced; missing not at random |
+
+```{python}
+df_clean = df.copy()
+
+# 1. Fill numeric columns with median (robust to outliers)
+df_clean["Age"]    = df_clean["Age"].fillna(df_clean["Age"].median())
+df_clean["Income"] = df_clean["Income"].fillna(df_clean["Income"].median())
+
+# 2. Fill categorical column with mode (most frequent value)
+df_clean["Segment"] = df_clean["Segment"].fillna(df_clean["Segment"].mode()[0])
+
+# Verify no missing values remain
+print("Missing after cleaning:", df_clean.isnull().sum().sum())
+print("\nMedian Age used for imputation:", df["Age"].median())
+print(f"Median Income used:            ${df['Income'].median():,.0f}")
+```
+
+```{python}
+# Alternative: drop rows with any missing values (use when data is abundant)
+df_dropped = df.dropna()
+print(f"Rows before: {len(df)}, after dropping NAs: {len(df_dropped)}")
+```
+
+---
+
+### Student Task 2.1
+
+Run the cell below to create a sales dataset with missing values. Then:
+
+1. Report which columns have missing values and what percentage is missing.
+2. Choose an appropriate strategy for each column and justify your choice.
+3. Apply your chosen strategy to produce a clean dataset `df_sales_clean`.
+4. Verify the clean dataset has zero missing values.
+
+```{python}
+# Dataset provided — do not change this cell
+np.random.seed(7)
+m = 150
+df_sales = pd.DataFrame({
+    "OrderID"    : range(5001, 5001 + m),
+    "Region"     : np.where(np.random.rand(m) < 0.06, np.nan,
+                            np.random.choice(["North","South","East","West"], m)),
+    "Sales"      : np.where(np.random.rand(m) < 0.10, np.nan,
+                            np.random.uniform(500, 50_000, m).round(2)),
+    "Quantity"   : np.random.randint(1, 100, m),
+    "Discount"   : np.where(np.random.rand(m) < 0.15, np.nan,
+                            np.random.uniform(0, 0.4, m).round(2)),
+})
+
+# Your cleaning code here
+```
+
+---
+
+### Evaluation Questions 2.1
+
+1. Which method returns a Boolean DataFrame showing where values are missing?
+   a) `df.missing()`
+   b) `df.isna()` (correct)
+   c) `df.nullcheck()`
+   d) `df.find_nan()`
+
+2. When is replacing missing values with the **median** preferred over the mean?
+   a) When there are no outliers
+   b) When the data is perfectly symmetric
+   c) When outliers are present in the column (correct)
+   d) When the column contains text
+
+3. Filling missing values using values from the previous row is called:
+   a) Backward fill
+   b) Mean imputation
+   c) Forward fill (correct)
+   d) Random imputation
+
+4. If 40% of values in a column are missing, which action is most appropriate?
+   a) Fill with the mean — always safe
+   b) Drop all rows with missing values
+   c) Investigate why data is missing and consider dropping the column (correct)
+   d) Replace with zero
+
+5. `df.dropna()` removes:
+   a) Columns with missing values
+   b) Only rows where all values are NaN
+   c) Any row that contains at least one missing value (correct)
+   d) Zero values
+
+---
+
+## Section 2.2 — Scaling and Normalising Data {#sec-22}
+
+Machine learning algorithms are sensitive to the **scale** of your features.
+A salary column (range: 30,000–200,000) would dominate an age column (range: 20–65)
+unless we rescale them.
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+
+# Sample employee dataset
+np.random.seed(0)
+n = 300
+df_emp = pd.DataFrame({
+    "Age"        : np.random.randint(22, 62, n),
+    "Salary"     : np.random.normal(75_000, 20_000, n).clip(30_000, 150_000),
+    "Experience" : np.random.randint(0, 35, n),
+    "Score"      : np.random.uniform(50, 100, n).round(1),
+})
+
+print("Raw data statistics:")
+print(df_emp.describe().round(2))
+```
+
+### Min-Max Normalisation
+
+Scales every value to the range [0, 1].
+
+$$x_{scaled} = \frac{x - x_{min}}{x_{max} - x_{min}}$$
+
+```{python}
+scaler_mm = MinMaxScaler()
+df_minmax = pd.DataFrame(
+    scaler_mm.fit_transform(df_emp),
+    columns=df_emp.columns
+)
+
+print("After Min-Max Scaling:")
+print(df_minmax.describe().round(3))
+```
+
+### Standardisation (Z-score Scaling)
+
+Centres data at mean = 0 with standard deviation = 1.
+
+$$x_{std} = \frac{x - \mu}{\sigma}$$
+
+```{python}
+scaler_std = StandardScaler()
+df_std = pd.DataFrame(
+    scaler_std.fit_transform(df_emp),
+    columns=df_emp.columns
+)
+
+print("After Standardisation:")
+print(df_std.describe().round(3))
+```
+
+### Comparing Distributions
+
+```{python}
+fig, axes = plt.subplots(1, 3, figsize=(14, 4))
+
+for ax, data, title in zip(axes,
+                            [df_emp["Salary"],
+                             df_minmax["Salary"],
+                             df_std["Salary"]],
+                            ["Raw Salary",
+                             "Min-Max Scaled",
+                             "Standardised"]):
+    ax.hist(data, bins=30, color="steelblue", edgecolor="white")
+    ax.set_title(title)
+    ax.set_xlabel("Value")
+
+plt.suptitle("Effect of Scaling on Salary Distribution", fontsize=13, y=1.02)
+plt.tight_layout()
+plt.show()
+```
+
+> **Key insight:** Scaling changes the *range* of values but **not the shape**
+> of the distribution.
+
+### When to Use Which?
+
+| Method | Use When |
+|---|---|
+| **Min-Max** | You need values in a fixed range [0,1]; no extreme outliers |
+| **Standardisation** | Algorithm assumes normality (e.g., logistic regression, SVM) |
+| **No scaling** | Tree-based models (Decision Trees, Random Forests) |
+
+---
+
+### Student Task 2.2
+
+Using the `df_emp` dataset from above:
+
+1. Apply **Min-Max scaling** to only the `Salary` and `Score` columns (leave others unchanged).
+2. Apply **Standardisation** to `Age` and `Experience`.
+3. Print the mean and standard deviation of each scaled column to verify the transformations worked correctly.
+4. Explain in one sentence why scaling is important before training a k-nearest-neighbours model.
+
+```{python}
+# Your code here — use df_emp from the section above
+```
+
+---
+
+### Evaluation Questions 2.2
+
+1. After Min-Max scaling, what is the range of values?
+   a) −1 to 1
+   b) 0 to 100
+   c) 0 to 1 (correct)
+   d) −3 to 3
+
+2. After Standardisation, what is the approximate **mean** of each feature?
+   a) 1
+   b) 0.5
+   c) 0 (correct)
+   d) It depends on the data
+
+3. Which type of model generally does **NOT** require feature scaling?
+   a) Logistic Regression
+   b) Support Vector Machine
+   c) K-Nearest Neighbours
+   d) Decision Tree (correct)
+
+4. What is the formula for a z-score?
+   a) $(x - x_{min}) / (x_{max} - x_{min})$
+   b) $(x - \mu) / \sigma$ (correct)
+   c) $x / x_{max}$
+   d) $(x - \sigma) / \mu$
+
+5. Which `sklearn` class is used for Standardisation?
+   a) `MinMaxScaler`
+   b) `Normalizer`
+   c) `StandardScaler` (correct)
+   d) `RobustScaler`
+
+---
+
+## Section 2.3 — Identifying Key Features {#sec-23}
+
+**Feature selection** identifies which variables (features) are most important
+for predicting an outcome. Fewer, more relevant features produce faster,
+more interpretable models.
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+np.random.seed(123)
+n = 500
+
+df_cust = pd.DataFrame({
+    "Age"             : np.random.randint(18, 70, n),
+    "Income"          : np.random.normal(60_000, 25_000, n).clip(20_000, 200_000),
+    "Tenure_Months"   : np.random.randint(1, 120, n),
+    "Num_Products"    : np.random.randint(1, 8, n),
+    "Web_Visits"      : np.random.randint(0, 50, n),
+    "Complaints"      : np.random.poisson(0.5, n),
+    "Satisfaction"    : np.random.uniform(1, 10, n).round(1),
+})
+
+# Target: will the customer churn? (influenced by satisfaction and complaints)
+df_cust["Churned"] = (
+    (df_cust["Satisfaction"] < 5) |
+    (df_cust["Complaints"]   > 2)
+).astype(int)
+
+print("Dataset shape:", df_cust.shape)
+print("Churn rate: {:.1%}".format(df_cust["Churned"].mean()))
+```
+
+### Correlation Analysis
+
+```{python}
+corr_matrix = df_cust.corr()
+
+fig, ax = plt.subplots(figsize=(9, 7))
+mask = np.triu(np.ones_like(corr_matrix, dtype=bool))
+sns.heatmap(corr_matrix, mask=mask, annot=True, fmt=".2f",
+            cmap="coolwarm", center=0, ax=ax,
+            square=True, linewidths=0.5)
+ax.set_title("Feature Correlation Matrix", fontsize=14, pad=15)
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+# Focus on correlation with the target variable
+target_corr = corr_matrix["Churned"].drop("Churned").sort_values(key=abs, ascending=False)
+print("Correlation with Churn (sorted by strength):")
+print(target_corr.round(3).to_string())
+```
+
+### Variance Analysis
+
+Features with near-zero variance carry little information.
+
+```{python}
+feature_variance = df_cust.drop(columns="Churned").var().sort_values(ascending=False)
+print("Feature Variance:")
+print(feature_variance.round(2).to_string())
+```
+
+### Feature Importance via Random Forest
+
+```{python}
+from sklearn.ensemble import RandomForestClassifier
+
+X = df_cust.drop(columns="Churned")
+y = df_cust["Churned"]
+
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
+rf.fit(X, y)
+
+importance_df = pd.DataFrame({
+    "Feature"   : X.columns,
+    "Importance": rf.feature_importances_
+}).sort_values("Importance", ascending=False)
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.barh(importance_df["Feature"], importance_df["Importance"], color="teal")
+ax.set_xlabel("Importance Score")
+ax.set_title("Feature Importance (Random Forest)")
+ax.invert_yaxis()
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+print("Top 3 most important features:")
+print(importance_df.head(3).to_string(index=False))
+```
+
+---
+
+### Student Task 2.3
+
+Using `df_cust`:
+
+1. Identify all features that have an **absolute correlation > 0.3** with `Churned`.
+2. Create a bar chart showing the correlation of each feature with `Churned`.
+3. Based on the Random Forest importance plot, which **two** features would you prioritise for a churn prediction model? Justify your choice.
+4. What does it mean if a feature has a **negative** correlation with churn?
+
+```{python}
+# Your code here
+```
+
+---
+
+### Evaluation Questions 2.3
+
+1. A correlation of −0.75 between two variables indicates:
+   a) No relationship
+   b) A weak positive relationship
+   c) A strong positive relationship
+   d) A strong negative relationship (correct)
+
+2. Feature importance from a Random Forest measures:
+   a) How large a feature's values are
+   b) How much each feature reduces prediction error (correct)
+   c) The correlation between a feature and the target
+   d) The number of unique values in a feature
+
+3. A feature with near-zero variance should likely be:
+   a) Normalised before use
+   b) Kept as the primary predictor
+   c) Removed — it carries little information (correct)
+   d) Multiplied by the target variable
+
+4. Why is feature selection important in business ML models?
+   a) It always improves accuracy significantly
+   b) It reduces model complexity and improves interpretability (correct)
+   c) It automatically handles missing values
+   d) It is required by all ML algorithms
+
+5. Which seaborn function creates a correlation heatmap?
+   a) `sns.corrplot()`
+   b) `sns.matrix()`
+   c) `sns.heatmap()` (correct)
+   d) `sns.pairplot()`
+
+---
+
+## Section 2.4 — Data Visualisation for EDA {#sec-24}
+
+Visualisation transforms numbers into insights. We use **Matplotlib** for
+fine-grained control and **Seaborn** for attractive statistical charts.
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.set_theme(style="whitegrid", palette="muted")
+
+# Retail sales dataset
+np.random.seed(99)
+n = 400
+df_retail = pd.DataFrame({
+    "Month"        : np.random.choice(range(1, 13), n),
+    "Category"     : np.random.choice(["Electronics","Apparel","Grocery","Home"], n),
+    "Sales"        : np.random.lognormal(10, 0.6, n).round(2),
+    "Discount_Pct" : np.random.uniform(0, 0.5, n).round(2),
+    "Customer_Age" : np.random.randint(18, 70, n),
+})
+```
+
+### Histograms — Understand Distributions
+
+```{python}
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+
+axes[0].hist(df_retail["Sales"], bins=40, color="steelblue", edgecolor="white")
+axes[0].set_title("Distribution of Sales")
+axes[0].set_xlabel("Sales ($)")
+axes[0].set_ylabel("Frequency")
+
+sns.histplot(df_retail["Customer_Age"], bins=25, kde=True,
+             color="coral", ax=axes[1])
+axes[1].set_title("Customer Age Distribution")
+axes[1].set_xlabel("Age")
+
+plt.tight_layout()
+plt.show()
+```
+
+### Box Plots — Spot Outliers and Compare Groups
+
+```{python}
+fig, ax = plt.subplots(figsize=(9, 5))
+sns.boxplot(data=df_retail, x="Category", y="Sales", palette="Set2", ax=ax)
+ax.set_title("Sales Distribution by Product Category")
+ax.set_xlabel("Category")
+ax.set_ylabel("Sales ($)")
+plt.tight_layout()
+plt.show()
+```
+
+### Scatter Plots — Explore Relationships
+
+```{python}
+fig, ax = plt.subplots(figsize=(8, 5))
+sns.scatterplot(data=df_retail, x="Discount_Pct", y="Sales",
+                hue="Category", alpha=0.5, ax=ax)
+ax.set_title("Sales vs Discount Percentage by Category")
+ax.set_xlabel("Discount (%)")
+ax.set_ylabel("Sales ($)")
+plt.tight_layout()
+plt.show()
+```
+
+### Bar Charts — Compare Aggregates
+
+```{python}
+category_sales = df_retail.groupby("Category")["Sales"].sum().sort_values(ascending=False)
+
+fig, ax = plt.subplots(figsize=(8, 4))
+category_sales.plot(kind="bar", color="teal", edgecolor="white", ax=ax)
+ax.set_title("Total Sales by Category")
+ax.set_xlabel("Category")
+ax.set_ylabel("Total Sales ($)")
+ax.tick_params(axis="x", rotation=0)
+plt.tight_layout()
+plt.show()
+```
+
+### Pair Plot — Multi-feature Overview
+
+```{python}
+#| fig-height: 6
+sns.pairplot(df_retail[["Sales", "Discount_Pct", "Customer_Age"]],
+             diag_kind="kde", plot_kws={"alpha": 0.3})
+plt.suptitle("Pair Plot — Retail Dataset", y=1.01, fontsize=13)
+plt.show()
+```
+
+---
+
+### Student Task 2.4
+
+Using `df_retail`:
+
+1. Create a **line chart** showing average monthly sales (x-axis = Month, y-axis = average Sales). Does any seasonal pattern emerge?
+2. Create a **box plot** comparing the distribution of `Discount_Pct` across categories.
+3. Add a **trend line** to the scatter plot of `Discount_Pct` vs `Sales` using `sns.regplot`. What does the slope tell you about the relationship?
+4. Write three business insights you can draw from the visualisations.
+
+```{python}
+# Your code here
+```
+
+---
+
+### Evaluation Questions 2.4
+
+1. Which chart type best shows the distribution of a single continuous variable?
+   a) Bar chart
+   b) Scatter plot
+   c) Histogram (correct)
+   d) Pie chart
+
+2. Box plots are especially useful for:
+   a) Showing time-series trends
+   b) Comparing category proportions
+   c) Identifying outliers and comparing group distributions (correct)
+   d) Displaying correlation coefficients
+
+3. In a scatter plot, what does a positive slope indicate?
+   a) As x increases, y decreases
+   b) As x increases, y increases (correct)
+   c) There is no relationship between x and y
+   d) Both variables have the same scale
+
+4. What does the `kde=True` argument add to `sns.histplot()`?
+   a) A key-density encryption layer
+   b) A smooth probability density curve overlaid on the histogram (correct)
+   c) An interactive zooming feature
+   d) K-means clustering
+
+5. `df.groupby("Category")["Sales"].mean()` returns:
+   a) A single overall average
+   b) The average sales for each category (correct)
+   c) The total sales per category
+   d) The median sales for all rows
+
+---
+
+# Module 3: Introduction to Machine Learning {#sec-module3}
+
+Machine learning (ML) enables computers to learn patterns from data and make
+predictions without being explicitly programmed for every case.
+
+## Section 3.1 — ML Concepts and Workflow {#sec-31}
+
+### What is Machine Learning?
+
+```
+Input Data  ──►  ML Algorithm  ──►  Trained Model  ──►  Predictions
+```
+
+| Type | Description | Business Example |
+|---|---|---|
+| **Supervised** | Learn from labelled examples | Predict customer churn (Yes/No) |
+| **Unsupervised** | Find hidden patterns | Customer segmentation |
+| **Reinforcement** | Learn through reward/penalty | Dynamic pricing engines |
+
+### The ML Workflow
+
+```{python}
+# Step 1 — Load and inspect data
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, mean_squared_error
+
+np.random.seed(42)
+n = 600
+
+df_loan = pd.DataFrame({
+    "Income"       : np.random.normal(55_000, 20_000, n).clip(20_000, 150_000).round(-2),
+    "Loan_Amount"  : np.random.normal(25_000, 10_000, n).clip(5_000, 80_000).round(-2),
+    "Credit_Score" : np.random.randint(500, 850, n),
+    "Age"          : np.random.randint(22, 65, n),
+    "Employment_Yrs": np.random.randint(0, 30, n),
+})
+
+# Target: loan approved (1) or denied (0)
+df_loan["Approved"] = (
+    (df_loan["Credit_Score"] > 650) &
+    (df_loan["Income"] > 40_000)
+).astype(int)
+
+print("Dataset shape:", df_loan.shape)
+print("Approval rate: {:.1%}".format(df_loan["Approved"].mean()))
+print(df_loan.head())
+```
+
+```{python}
+# Step 2 — Split into features (X) and target (y)
+X = df_loan.drop(columns="Approved")
+y = df_loan["Approved"]
+
+# Step 3 — Train/test split (80 % train, 20 % test)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+print(f"Training samples : {len(X_train)}")
+print(f"Testing samples  : {len(X_test)}")
+print(f"Train approval rate: {y_train.mean():.2%}")
+print(f"Test  approval rate: {y_test.mean():.2%}")
+```
+
+```{python}
+# Step 4 — Scale features
+scaler = StandardScaler()
+X_train_sc = scaler.fit_transform(X_train)   # fit on train, transform train
+X_test_sc  = scaler.transform(X_test)        # transform test using train stats
+```
+
+> **Critical rule:** Always fit the scaler on **training data only**, then apply
+> it to both train and test sets. Fitting on test data would cause *data leakage*.
+
+### Evaluating Model Performance
+
+```{python}
+import matplotlib.pyplot as plt
+
+# Illustrate the bias-variance trade-off concept
+complexity = list(range(1, 11))
+train_err  = [0.40, 0.28, 0.18, 0.10, 0.06, 0.04, 0.02, 0.01, 0.01, 0.01]
+test_err   = [0.42, 0.30, 0.22, 0.16, 0.14, 0.15, 0.18, 0.23, 0.30, 0.38]
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(complexity, train_err, "b-o", label="Training Error")
+ax.plot(complexity, test_err,  "r-o", label="Test Error")
+ax.axvline(x=5, color="green", linestyle="--", label="Optimal Complexity")
+ax.set_xlabel("Model Complexity")
+ax.set_ylabel("Error")
+ax.set_title("Bias-Variance Trade-off")
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+### Student Task 3.1
+
+Using the `df_loan` dataset:
+
+1. Check for missing values and confirm the data is clean.
+2. Show the class balance of the `Approved` column with a bar chart.
+3. Perform a train/test split (75% / 25%) and print the number of rows in each set.
+4. Apply `StandardScaler` to the training set. Verify the mean and standard deviation of the scaled training data.
+5. Why is it important to use `stratify=y` in the train/test split?
+
+```{python}
+# Your code here
+```
+
+---
+
+### Evaluation Questions 3.1
+
+1. Which step must come **before** fitting a scaler?
+   a) Testing the model
+   b) Splitting data into train and test sets (correct)
+   c) Removing the target column from training data
+   d) Encoding categorical variables
+
+2. Data leakage occurs when:
+   a) You use too few training examples
+   b) Test set information influences model training (correct)
+   c) You apply too many scaling methods
+   d) Your model has too many layers
+
+3. The `test_size=0.2` argument means:
+   a) 20 rows are used for testing
+   b) 20 % of the data is held out for testing (correct)
+   c) Testing runs 20 times
+   d) 2 features are selected for testing
+
+4. In supervised learning, the **label** or **target** variable is:
+   a) Any continuous feature
+   b) The variable you are trying to predict (correct)
+   c) A feature you must remove before training
+   d) The first column of the DataFrame
+
+5. The bias-variance trade-off describes the balance between:
+   a) Speed and accuracy
+   b) Overfitting (high variance) and underfitting (high bias) (correct)
+   c) Training data size and test data size
+   d) Number of features and number of rows
+
+---
+
+## Section 3.2 — Simple Regression Models {#sec-32}
+
+**Regression** predicts a **continuous** numerical outcome (e.g., revenue,
+house price, demand).
+
+### Linear Regression
+
+$$\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots + \beta_n x_n$$
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+np.random.seed(5)
+n = 400
+
+# House price dataset
+df_house = pd.DataFrame({
+    "Size_sqft"  : np.random.randint(500, 4000, n),
+    "Bedrooms"   : np.random.randint(1, 6, n),
+    "Age_years"  : np.random.randint(0, 50, n),
+    "Distance_km": np.random.uniform(1, 30, n).round(1),
+})
+
+# Price = true relationship + noise
+df_house["Price"] = (
+      250 * df_house["Size_sqft"]
+    + 15_000 * df_house["Bedrooms"]
+    - 2_000 * df_house["Age_years"]
+    - 5_000 * df_house["Distance_km"]
+    + 80_000
+    + np.random.normal(0, 30_000, n)
+).round(-2)
+
+print("House dataset:")
+print(df_house.describe().round(0))
+```
+
+```{python}
+X = df_house.drop(columns="Price")
+y = df_house["Price"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42)
+
+scaler = StandardScaler()
+X_train_sc = scaler.fit_transform(X_train)
+X_test_sc  = scaler.transform(X_test)
+
+# Train the model
+model_lr = LinearRegression()
+model_lr.fit(X_train_sc, y_train)
+
+# Predict
+y_pred = model_lr.predict(X_test_sc)
+```
+
+```{python}
+# Evaluate performance
+mae  = mean_absolute_error(y_test, y_pred)
+rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+r2   = r2_score(y_test, y_pred)
+
+print(f"Mean Absolute Error  : ${mae:,.0f}")
+print(f"Root Mean Sq. Error  : ${rmse:,.0f}")
+print(f"R² Score             : {r2:.3f}")
+```
+
+```{python}
+# Visualise actual vs predicted
+fig, ax = plt.subplots(figsize=(7, 5))
+ax.scatter(y_test, y_pred, alpha=0.4, color="steelblue")
+ax.plot([y_test.min(), y_test.max()],
+        [y_test.min(), y_test.max()], "r--", label="Perfect prediction")
+ax.set_xlabel("Actual Price ($)")
+ax.set_ylabel("Predicted Price ($)")
+ax.set_title("Linear Regression — Actual vs Predicted")
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+# Regression coefficients — feature impact
+coef_df = pd.DataFrame({
+    "Feature"    : X.columns,
+    "Coefficient": model_lr.coef_
+}).sort_values("Coefficient", ascending=False)
+
+print("Feature Coefficients (standardised):")
+print(coef_df.to_string(index=False))
+print("\nInterpretation: larger absolute value = stronger influence on price.")
+```
+
+### Interpreting Regression Metrics
+
+| Metric | Formula | Interpretation |
+|---|---|---|
+| **MAE** | mean(|actual − predicted|) | Average dollar error |
+| **RMSE** | √mean((actual−predicted)²) | Penalises large errors more |
+| **R²** | 1 − SS_res/SS_tot | 0 = no fit; 1 = perfect fit |
+
+---
+
+### Student Task 3.2
+
+A marketing team wants to predict next month's **advertising spend** required
+to achieve a target **sales volume**.
+
+1. Create a synthetic dataset (100 rows) with features `Ad_Budget`, `Season` (encode as 1–4), and `Competitors` (integer), and a target `Sales`.
+2. Train a `LinearRegression` model and evaluate with MAE, RMSE, and R².
+3. Plot Actual vs Predicted sales.
+4. Which feature has the largest coefficient? What does that mean for the business?
+
+```{python}
+# Your code here
+```
+
+---
+
+### Evaluation Questions 3.2
+
+1. R² = 0.85 means the model explains what percentage of variance in the target?
+   a) 15 %
+   b) 85 % (correct)
+   c) 8.5 %
+   d) 0.85 %
+
+2. Which metric is most sensitive to large prediction errors?
+   a) MAE
+   b) R²
+   c) RMSE (correct)
+   d) Accuracy
+
+3. Linear regression assumes the relationship between features and target is:
+   a) Exponential
+   b) Linear (correct)
+   c) Circular
+   d) Random
+
+4. `model.coef_` returns:
+   a) The model's accuracy score
+   b) The number of training iterations
+   c) The learned weights for each feature (correct)
+   d) The predicted values
+
+5. If a regression coefficient for `Ad_Budget` is positive, it means:
+   a) Higher ad spend predicts lower sales
+   b) Higher ad spend predicts higher sales (correct)
+   c) Ad budget is unrelated to sales
+   d) Ad budget should be removed from the model
+
+---
+
+## Section 3.3 — Simple Classification Models {#sec-33}
+
+**Classification** predicts a **category** (e.g., yes/no, tier A/B/C, fraud/not fraud).
+
+### Logistic Regression
+
+Despite the name, logistic regression is a **classification** algorithm. It
+outputs the probability that an observation belongs to a class.
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import (accuracy_score, classification_report,
+                              confusion_matrix, ConfusionMatrixDisplay)
+
+np.random.seed(42)
+n = 800
+
+# Customer churn dataset
+df_churn = pd.DataFrame({
+    "Tenure_Months" : np.random.randint(1, 72, n),
+    "Monthly_Spend" : np.random.normal(70, 25, n).clip(20, 200).round(2),
+    "Support_Calls" : np.random.poisson(1.5, n),
+    "Satisfaction"  : np.random.uniform(1, 10, n).round(1),
+    "Num_Products"  : np.random.randint(1, 6, n),
+})
+
+df_churn["Churned"] = (
+    (df_churn["Satisfaction"] < 4.5) |
+    (df_churn["Support_Calls"] > 4)
+).astype(int)
+
+X = df_churn.drop(columns="Churned")
+y = df_churn["Churned"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y)
+
+scaler = StandardScaler()
+X_train_sc = scaler.fit_transform(X_train)
+X_test_sc  = scaler.transform(X_test)
+
+print("Dataset shape:", df_churn.shape)
+print("Churn rate: {:.1%}".format(y.mean()))
+```
+
+```{python}
+# Train Logistic Regression
+log_reg = LogisticRegression(random_state=42, max_iter=1000)
+log_reg.fit(X_train_sc, y_train)
+y_pred_lr = log_reg.predict(X_test_sc)
+
+print("=== Logistic Regression ===")
+print(f"Accuracy: {accuracy_score(y_test, y_pred_lr):.2%}")
+print(classification_report(y_test, y_pred_lr, target_names=["Stayed","Churned"]))
+```
+
+```{python}
+# Confusion matrix
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+
+for ax, model, name in zip(axes,
+    [log_reg, KNeighborsClassifier(n_neighbors=7).fit(X_train_sc, y_train)],
+    ["Logistic Regression", "K-Nearest Neighbours (k=7)"]):
+
+    preds = model.predict(X_test_sc)
+    cm    = confusion_matrix(y_test, preds)
+    disp  = ConfusionMatrixDisplay(cm, display_labels=["Stayed","Churned"])
+    disp.plot(ax=ax, colorbar=False, cmap="Blues")
+    ax.set_title(f"{name}\nAccuracy: {accuracy_score(y_test, preds):.2%}")
+
+plt.tight_layout()
+plt.show()
+```
+
+### Understanding Classification Metrics
+
+```{python}
+# Manual illustration
+from sklearn.metrics import precision_score, recall_score, f1_score
+
+y_pred_knn = KNeighborsClassifier(n_neighbors=7).fit(
+    X_train_sc, y_train).predict(X_test_sc)
+
+metrics_df = pd.DataFrame({
+    "Model"     : ["Logistic Regression", "KNN (k=7)"],
+    "Accuracy"  : [accuracy_score(y_test, y_pred_lr),
+                   accuracy_score(y_test, y_pred_knn)],
+    "Precision" : [precision_score(y_test, y_pred_lr),
+                   precision_score(y_test, y_pred_knn)],
+    "Recall"    : [recall_score(y_test, y_pred_lr),
+                   recall_score(y_test, y_pred_knn)],
+    "F1-Score"  : [f1_score(y_test, y_pred_lr),
+                   f1_score(y_test, y_pred_knn)],
+}).set_index("Model")
+
+print(metrics_df.round(3))
+```
+
+> **Business context:** In churn prediction, **Recall** (catching actual
+> churners) is often more important than Precision — missing a churner is
+> costlier than an unnecessary retention call.
+
+---
+
+### Student Task 3.3
+
+A bank wants to classify loan applications as **Approved** or **Denied**.
+
+1. Re-use the `df_loan` dataset from Section 3.1.
+2. Train both a `LogisticRegression` and a `KNeighborsClassifier` (k=5).
+3. Compare Accuracy, Precision, Recall, and F1-Score for both models.
+4. Plot confusion matrices for both models side by side.
+5. Which model would you recommend to the bank's risk team and why?
+
+```{python}
+# Your code here
+# Reload df_loan from Section 3.1 if needed
+```
+
+---
+
+### Evaluation Questions 3.3
+
+1. Logistic Regression outputs a:
+   a) Continuous value like revenue
+   b) Probability between 0 and 1 (correct)
+   c) Cluster label
+   d) Feature importance score
+
+2. **Recall** (sensitivity) measures:
+   a) Of all predicted positives, how many are correct
+   b) Of all actual positives, how many were correctly predicted (correct)
+   c) The overall fraction of correct predictions
+   d) The harmonic mean of precision and recall
+
+3. A confusion matrix shows:
+   a) Which features are most confusing for the model
+   b) True and false positives and negatives (correct)
+   c) The correlation between features
+   d) Model training time
+
+4. In which business scenario is **high recall** most critical?
+   a) Recommending products to customers
+   b) Predicting email open rates
+   c) Detecting fraudulent transactions (correct)
+   d) Forecasting annual revenue
+
+5. KNN classifies a new point by:
+   a) Fitting a straight decision boundary
+   b) Looking at the k closest training examples and taking a majority vote (correct)
+   c) Building a tree of decision rules
+   d) Computing the probability using a sigmoid function
+
+---
+
+## Section 3.4 — Decision Trees and Random Forests {#sec-34}
+
+Decision Trees and Random Forests are among the most popular algorithms in
+business ML because they are **interpretable** and handle mixed data types well.
+
+### Decision Trees
+
+A Decision Tree splits data into groups by asking a series of yes/no questions.
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import accuracy_score, classification_report
+
+# Re-use churn dataset
+np.random.seed(42)
+n = 800
+df_churn = pd.DataFrame({
+    "Tenure_Months" : np.random.randint(1, 72, n),
+    "Monthly_Spend" : np.random.normal(70, 25, n).clip(20, 200).round(2),
+    "Support_Calls" : np.random.poisson(1.5, n),
+    "Satisfaction"  : np.random.uniform(1, 10, n).round(1),
+    "Num_Products"  : np.random.randint(1, 6, n),
+})
+df_churn["Churned"] = (
+    (df_churn["Satisfaction"] < 4.5) |
+    (df_churn["Support_Calls"] > 4)
+).astype(int)
+
+X = df_churn.drop(columns="Churned")
+y = df_churn["Churned"]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y)
+```
+
+```{python}
+# Train a shallow decision tree (max 3 levels — readable)
+dt = DecisionTreeClassifier(max_depth=3, random_state=42)
+dt.fit(X_train, y_train)
+
+y_pred_dt = dt.predict(X_test)
+print("Decision Tree Accuracy:", f"{accuracy_score(y_test, y_pred_dt):.2%}")
+```
+
+```{python}
+# Visualise the tree
+fig, ax = plt.subplots(figsize=(16, 6))
+plot_tree(dt,
+          feature_names=X.columns,
+          class_names=["Stayed", "Churned"],
+          filled=True, rounded=True, fontsize=10, ax=ax)
+ax.set_title("Decision Tree (max_depth=3)", fontsize=14)
+plt.tight_layout()
+plt.show()
+```
+
+### Overfitting in Decision Trees
+
+```{python}
+depths     = range(1, 16)
+train_acc  = []
+test_acc   = []
+
+for d in depths:
+    clf = DecisionTreeClassifier(max_depth=d, random_state=42)
+    clf.fit(X_train, y_train)
+    train_acc.append(accuracy_score(y_train, clf.predict(X_train)))
+    test_acc.append(accuracy_score(y_test,  clf.predict(X_test)))
+
+fig, ax = plt.subplots(figsize=(9, 4))
+ax.plot(depths, train_acc, "b-o", label="Train Accuracy")
+ax.plot(depths, test_acc,  "r-o", label="Test Accuracy")
+ax.set_xlabel("Max Tree Depth")
+ax.set_ylabel("Accuracy")
+ax.set_title("Decision Tree: Accuracy vs Depth")
+ax.legend()
+ax.axvline(x=3, color="green", linestyle="--", label="Optimal depth ≈ 3")
+plt.tight_layout()
+plt.show()
+```
+
+### Random Forest — Ensemble Learning
+
+A Random Forest builds **many decision trees** on random data subsets, then
+**averages** their predictions. This reduces variance without much bias increase.
+
+```{python}
+rf = RandomForestClassifier(n_estimators=200, max_depth=6,
+                             random_state=42, n_jobs=-1)
+rf.fit(X_train, y_train)
+y_pred_rf = rf.predict(X_test)
+
+print("Random Forest Accuracy:", f"{accuracy_score(y_test, y_pred_rf):.2%}")
+print(classification_report(y_test, y_pred_rf, target_names=["Stayed","Churned"]))
+```
+
+```{python}
+# Feature importance
+imp_df = pd.DataFrame({
+    "Feature"   : X.columns,
+    "Importance": rf.feature_importances_
+}).sort_values("Importance", ascending=True)
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.barh(imp_df["Feature"], imp_df["Importance"], color="teal")
+ax.set_xlabel("Importance")
+ax.set_title("Random Forest Feature Importance")
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+# Cross-validation for robust evaluation
+cv_scores = cross_val_score(rf, X, y, cv=5, scoring="accuracy")
+print(f"5-Fold CV Accuracy: {cv_scores.mean():.2%} ± {cv_scores.std():.2%}")
+```
+
+---
+
+### Student Task 3.4
+
+1. Train a `DecisionTreeClassifier` on the loan approval dataset (`df_loan`) with `max_depth=4`.
+2. Visualise the tree and identify the most important splitting feature at the root.
+3. Train a `RandomForestClassifier` with 100 trees and compare accuracy with the single tree.
+4. Plot feature importance from the Random Forest.
+5. Explain in plain language why a Random Forest generally outperforms a single Decision Tree.
+
+```{python}
+# Your code here
+```
+
+---
+
+### Evaluation Questions 3.4
+
+1. What is the purpose of `max_depth` in a Decision Tree?
+   a) Limits the number of features used
+   b) Limits how many levels deep the tree can grow, preventing overfitting (correct)
+   c) Sets the number of trees in the forest
+   d) Controls the learning rate
+
+2. A Random Forest improves over a single Decision Tree by:
+   a) Using a more complex mathematical formula
+   b) Averaging predictions of many trees trained on random subsets (correct)
+   c) Using gradient descent
+   d) Selecting only the most important features
+
+3. Feature importance in a Random Forest reflects:
+   a) The correlation of each feature with the target
+   b) How much each feature reduces impurity across all trees (correct)
+   c) The number of times each feature appears in the data
+   d) The p-value of each feature
+
+4. Cross-validation helps evaluate a model by:
+   a) Training the model multiple times with different hyperparameters
+   b) Testing the model on multiple different train/test splits (correct)
+   c) Reducing the training dataset size
+   d) Automatically tuning the number of trees
+
+5. Which statement about Decision Trees is TRUE?
+   a) They always require feature scaling
+   b) They cannot handle categorical variables
+   c) A very deep tree typically overfits to training data (correct)
+   d) They produce a linear decision boundary
+
+---
+
+# Module 4: Business Applications of Machine Learning {#sec-module4}
+
+This module connects ML methods to real business problems in three key domains:
+Marketing, Finance, and Operations.
+
+## Section 4.1 — ML in Marketing {#sec-41}
+
+Marketing generates rich customer data that ML can turn into competitive
+advantages: personalised offers, targeted campaigns, and churn prevention.
+
+### Customer Segmentation with K-Means
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+np.random.seed(10)
+n = 500
+
+df_mkt = pd.DataFrame({
+    "Recency_Days"   : np.random.randint(1, 365, n),    # days since last purchase
+    "Frequency"      : np.random.randint(1, 30, n),      # purchases per year
+    "Monetary_Value" : np.random.lognormal(7, 1, n).round(2),  # avg spend
+})
+
+scaler = StandardScaler()
+X_sc   = scaler.fit_transform(df_mkt)
+```
+
+```{python}
+# Elbow method — choose optimal number of clusters
+inertia = []
+K_range = range(1, 11)
+for k in K_range:
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
+    km.fit(X_sc)
+    inertia.append(km.inertia_)
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(K_range, inertia, "bo-")
+ax.set_xlabel("Number of Clusters (k)")
+ax.set_ylabel("Inertia (Within-cluster Sum of Squares)")
+ax.set_title("Elbow Method for Optimal k")
+ax.axvline(x=4, color="red", linestyle="--", label="Elbow at k=4")
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+# Fit K-Means with k=4
+km4 = KMeans(n_clusters=4, random_state=42, n_init=10)
+df_mkt["Segment"] = km4.fit_predict(X_sc)
+
+# Profile each segment
+seg_profile = df_mkt.groupby("Segment").agg(
+    Avg_Recency   = ("Recency_Days",   "mean"),
+    Avg_Frequency = ("Frequency",      "mean"),
+    Avg_Monetary  = ("Monetary_Value", "mean"),
+    Count         = ("Recency_Days",   "count")
+).round(1)
+
+print("Customer Segment Profiles (RFM):")
+print(seg_profile)
+```
+
+```{python}
+# Label segments based on RFM profile
+seg_labels = {
+    seg_profile["Avg_Monetary"].idxmax()  : "Champions",
+    seg_profile["Avg_Recency"].idxmax()   : "At-Risk",
+}
+
+fig, ax = plt.subplots(figsize=(8, 5))
+scatter = ax.scatter(df_mkt["Recency_Days"], df_mkt["Monetary_Value"],
+                     c=df_mkt["Segment"], cmap="tab10", alpha=0.5, s=20)
+ax.set_xlabel("Recency (Days Since Last Purchase)")
+ax.set_ylabel("Monetary Value ($)")
+ax.set_title("Customer Segments — RFM Clustering")
+plt.colorbar(scatter, ax=ax, label="Segment")
+plt.tight_layout()
+plt.show()
+```
+
+### Churn Prediction Model
+
+```{python}
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, roc_auc_score, RocCurveDisplay
+
+np.random.seed(7)
+n = 1000
+df_churn2 = pd.DataFrame({
+    "Recency_Days"    : np.random.randint(1, 365, n),
+    "Frequency"       : np.random.randint(1, 50, n),
+    "Avg_Spend"       : np.random.lognormal(4, 0.8, n).round(2),
+    "Email_Opens"     : np.random.randint(0, 30, n),
+    "NPS_Score"       : np.random.randint(1, 11, n),
+})
+df_churn2["Churned"] = (
+    (df_churn2["Recency_Days"] > 180) & (df_churn2["NPS_Score"] < 6)
+).astype(int)
+
+X = df_churn2.drop(columns="Churned")
+y = df_churn2["Churned"]
+X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2,
+                                            random_state=42, stratify=y)
+rf_mkt = RandomForestClassifier(n_estimators=200, random_state=42)
+rf_mkt.fit(X_tr, y_tr)
+
+y_prob = rf_mkt.predict_proba(X_te)[:, 1]
+print(f"AUC-ROC: {roc_auc_score(y_te, y_prob):.3f}")
+
+fig, ax = plt.subplots(figsize=(6, 5))
+RocCurveDisplay.from_estimator(rf_mkt, X_te, y_te, ax=ax, name="RF Churn Model")
+ax.set_title("ROC Curve — Churn Prediction")
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+### Student Task 4.1
+
+Your marketing manager wants to design targeted email campaigns for different customer groups.
+
+1. Using `df_mkt`, try **k = 3** and **k = 5** clusters. Which do you prefer? Why?
+2. For each segment, write a brief **marketing strategy** (1–2 sentences) recommending how to engage that customer group.
+3. Using the churn model probabilities, create a DataFrame of the **top 50 customers** most likely to churn. What action would you recommend for each?
+
+```{python}
+# Your code here
+```
+
+---
+
+### Evaluation Questions 4.1
+
+1. **RFM** in customer analytics stands for:
+   a) Revenue, Frequency, Market
+   b) Recency, Frequency, Monetary (correct)
+   c) Return, Function, Model
+   d) Risk, Forecast, Margin
+
+2. The "elbow" in a K-Means elbow plot indicates:
+   a) The maximum number of clusters allowed
+   b) The point where adding more clusters yields diminishing returns (correct)
+   c) An error in the data
+   d) The optimal feature count
+
+3. K-Means is an example of which type of learning?
+   a) Supervised learning
+   b) Reinforcement learning
+   c) Semi-supervised learning
+   d) Unsupervised learning (correct)
+
+4. AUC-ROC of 0.5 indicates:
+   a) Perfect classification
+   b) 50 % accuracy
+   c) Model is no better than random guessing (correct)
+   d) 50 % of customers will churn
+
+5. A **false negative** in churn prediction means:
+   a) Predicting a customer will churn when they will not
+   b) Correctly identifying a loyal customer
+   c) Predicting a customer will stay when they actually churn (correct)
+   d) Correctly predicting a churner
+
+---
+
+## Section 4.2 — ML in Finance {#sec-42}
+
+Finance teams use ML for credit scoring, fraud detection, portfolio management,
+and risk assessment.
+
+### Credit Scoring Model
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, roc_auc_score, RocCurveDisplay
+from sklearn.preprocessing import StandardScaler
+
+np.random.seed(42)
+n = 2000
+
+df_credit = pd.DataFrame({
+    "Age"              : np.random.randint(18, 70, n),
+    "Annual_Income"    : np.random.normal(55_000, 20_000, n).clip(15_000, 200_000).round(-2),
+    "Credit_History"   : np.random.randint(0, 20, n),         # years
+    "Existing_Debt"    : np.random.normal(15_000, 10_000, n).clip(0, 80_000).round(-2),
+    "Employment_Status": np.random.choice([0, 1], n, p=[0.2, 0.8]),  # 0=unemployed
+    "Num_Loans"        : np.random.randint(0, 8, n),
+})
+
+# Default probability influenced by debt ratio and employment
+debt_ratio       = df_credit["Existing_Debt"] / df_credit["Annual_Income"]
+default_prob     = (0.3 * debt_ratio + 0.2 * (1 - df_credit["Employment_Status"])
+                    + 0.1 * (df_credit["Num_Loans"] / 8)).clip(0, 1)
+df_credit["Default"] = np.random.binomial(1, default_prob)
+
+print("Default rate: {:.1%}".format(df_credit["Default"].mean()))
+
+X = df_credit.drop(columns="Default")
+y = df_credit["Default"]
+
+X_tr, X_te, y_tr, y_te = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y)
+
+scaler = StandardScaler()
+X_tr_sc = scaler.fit_transform(X_tr)
+X_te_sc = scaler.transform(X_te)
+
+gb_model = GradientBoostingClassifier(
+    n_estimators=200, max_depth=4, learning_rate=0.1, random_state=42)
+gb_model.fit(X_tr_sc, y_tr)
+
+y_prob_credit = gb_model.predict_proba(X_te_sc)[:, 1]
+print(f"\nAUC-ROC: {roc_auc_score(y_te, y_prob_credit):.3f}")
+print(classification_report(y_te, gb_model.predict(X_te_sc),
+                             target_names=["No Default","Default"]))
+```
+
+```{python}
+# Assign credit scores (higher = lower default risk)
+all_prob = gb_model.predict_proba(scaler.transform(X))[:, 1]
+df_credit["Credit_Score"] = (1000 * (1 - all_prob)).round(0).astype(int)
+
+fig, axes = plt.subplots(1, 2, figsize=(13, 4))
+
+axes[0].hist(df_credit["Credit_Score"], bins=40, color="steelblue", edgecolor="white")
+axes[0].set_title("Predicted Credit Score Distribution")
+axes[0].set_xlabel("Score")
+axes[0].set_ylabel("Count")
+
+RocCurveDisplay.from_estimator(gb_model, X_te_sc, y_te, ax=axes[1],
+                                name="Gradient Boosting")
+axes[1].set_title("ROC Curve — Default Prediction")
+
+plt.tight_layout()
+plt.show()
+```
+
+### Fraud Detection
+
+```{python}
+from sklearn.ensemble import IsolationForest
+
+np.random.seed(55)
+n_normal = 1900
+n_fraud  = 100
+
+df_fraud = pd.DataFrame({
+    "Amount"    : np.concatenate([np.random.lognormal(4, 1, n_normal),
+                                   np.random.uniform(5_000, 20_000, n_fraud)]),
+    "Hour"      : np.concatenate([np.random.randint(6, 22, n_normal),
+                                   np.random.randint(0, 6, n_fraud)]),
+    "Merchant_Risk": np.concatenate([np.random.uniform(0, 0.3, n_normal),
+                                       np.random.uniform(0.7, 1.0, n_fraud)]),
+    "True_Fraud": [0] * n_normal + [1] * n_fraud
+})
+
+X_fraud = df_fraud[["Amount","Hour","Merchant_Risk"]]
+iso     = IsolationForest(contamination=0.05, random_state=42)
+iso.fit(X_fraud)
+df_fraud["Predicted_Fraud"] = (iso.predict(X_fraud) == -1).astype(int)
+
+tp = ((df_fraud["True_Fraud"] == 1) & (df_fraud["Predicted_Fraud"] == 1)).sum()
+print(f"Fraud correctly flagged (Recall): {tp/n_fraud:.1%}")
+```
+
+---
+
+### Student Task 4.2
+
+1. Using `df_credit`, plot **feature importance** for the Gradient Boosting model. Which three factors most strongly predict loan default?
+2. Create a bar chart showing **average default rate by number of existing loans** (`Num_Loans`). What pattern emerges?
+3. What **ethical concerns** should a bank consider when using an ML credit scoring model? Write 2–3 sentences.
+
+```{python}
+# Your code here
+```
+
+---
+
+### Evaluation Questions 4.2
+
+1. In credit scoring, a **high AUC-ROC** score indicates:
+   a) The model makes many false positives
+   b) The model is good at distinguishing defaulters from non-defaulters (correct)
+   c) The loan approval rate is high
+   d) The model was trained on a large dataset
+
+2. **Gradient Boosting** builds models by:
+   a) Training one large decision tree
+   b) Averaging many independent trees in parallel
+   c) Sequentially adding trees that correct previous errors (correct)
+   d) Clustering customers before prediction
+
+3. An Isolation Forest detects anomalies by:
+   a) Calculating the distance from cluster centroids
+   b) Identifying points that are easy to isolate in fewer splits (correct)
+   c) Using logistic regression probabilities
+   d) Training on only fraudulent transactions
+
+4. Why is **class imbalance** a challenge in fraud detection?
+   a) Fraud happens too frequently
+   b) The model may learn to predict "no fraud" for all cases and still get high accuracy (correct)
+   c) There are too many features in financial datasets
+   d) Neural networks cannot detect fraud
+
+5. What does `predict_proba()` return for a binary classifier?
+   a) The predicted class label (0 or 1)
+   b) The feature importance array
+   c) A probability for each class (correct)
+   d) The confusion matrix
+
+---
+
+## Section 4.3 — ML in Operations {#sec-43}
+
+Operations teams use ML for demand forecasting, supply chain optimisation,
+quality control, and predictive maintenance.
+
+### Demand Forecasting
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.preprocessing import StandardScaler
+
+np.random.seed(0)
+dates      = pd.date_range("2020-01-01", periods=104, freq="W")  # 2 years of weekly data
+trend      = np.linspace(500, 800, 104)
+seasonality= 100 * np.sin(2 * np.pi * np.arange(104) / 52)
+noise      = np.random.normal(0, 30, 104)
+demand     = (trend + seasonality + noise).clip(0).round()
+
+df_ops = pd.DataFrame({
+    "Date"         : dates,
+    "Demand"       : demand,
+    "Week_of_Year" : dates.isocalendar().week.values,
+    "Quarter"      : dates.quarter,
+    "Promotion"    : np.random.choice([0, 1], 104, p=[0.75, 0.25]),
+    "Price_Index"  : np.random.uniform(0.95, 1.05, 104).round(3),
+})
+
+fig, ax = plt.subplots(figsize=(12, 4))
+ax.plot(df_ops["Date"], df_ops["Demand"], color="steelblue", linewidth=1.2)
+ax.set_title("Weekly Product Demand (2 Years)")
+ax.set_xlabel("Date")
+ax.set_ylabel("Units Demanded")
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+# Feature engineering for forecasting
+X = df_ops[["Week_of_Year", "Quarter", "Promotion", "Price_Index"]]
+y = df_ops["Demand"]
+
+X_tr, X_te, y_tr, y_te = train_test_split(
+    X, y, test_size=0.2, shuffle=False)      # no shuffle — time order matters!
+
+rf_ops = RandomForestRegressor(n_estimators=200, random_state=42)
+rf_ops.fit(X_tr, y_tr)
+y_pred_ops = rf_ops.predict(X_te)
+
+mae = mean_absolute_error(y_te, y_pred_ops)
+r2  = r2_score(y_te, y_pred_ops)
+print(f"Demand Forecast MAE : {mae:.1f} units")
+print(f"Demand Forecast R²  : {r2:.3f}")
+```
+
+```{python}
+fig, ax = plt.subplots(figsize=(12, 4))
+ax.plot(y_te.values, label="Actual Demand", color="steelblue")
+ax.plot(y_pred_ops,  label="Forecast",      color="orange", linestyle="--")
+ax.set_title("Demand Forecast vs Actual (Test Period)")
+ax.set_xlabel("Week")
+ax.set_ylabel("Units")
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+### Predictive Maintenance
+
+```{python}
+np.random.seed(22)
+n = 1000
+
+# Machine sensor readings
+df_maint = pd.DataFrame({
+    "Temperature"   : np.random.normal(75, 10, n),
+    "Vibration"     : np.random.normal(0.5, 0.1, n),
+    "Operating_Hrs" : np.random.randint(100, 10_000, n),
+    "Pressure"      : np.random.normal(100, 15, n),
+})
+
+# Failure more likely when temperature is high and vibration is high
+failure_prob = (
+    0.001 * df_maint["Temperature"] +
+    0.3   * df_maint["Vibration"]   +
+    0.00001 * df_maint["Operating_Hrs"] - 0.05
+).clip(0, 1)
+
+df_maint["Failure"] = np.random.binomial(1, failure_prob)
+print(f"Failure rate: {df_maint['Failure'].mean():.2%}")
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+
+X_m = df_maint.drop(columns="Failure")
+y_m = df_maint["Failure"]
+X_mtr, X_mte, y_mtr, y_mte = train_test_split(X_m, y_m, test_size=0.2,
+                                                random_state=42, stratify=y_m)
+
+rf_maint = RandomForestClassifier(n_estimators=100, random_state=42)
+rf_maint.fit(X_mtr, y_mtr)
+print(classification_report(y_mte, rf_maint.predict(X_mte),
+                             target_names=["OK","Failure"]))
+```
+
+---
+
+### Student Task 4.3
+
+1. Using `df_ops`, investigate whether **promotions** significantly increase demand. Calculate average demand with and without a promotion.
+2. Retrain the demand forecasting model adding a **Lag_1_Demand** feature (last week's demand). Does R² improve?
+3. For the predictive maintenance model, plot feature importance. Which sensor reading is the strongest predictor of machine failure?
+4. Describe how a manufacturer could use this model to **reduce downtime costs**.
+
+```{python}
+# Your code here
+```
+
+---
+
+### Evaluation Questions 4.3
+
+1. Why should demand forecasting data **not be shuffled** before splitting train/test?
+   a) Shuffling causes data loss
+   b) The time sequence must be preserved so the model does not see future data (correct)
+   c) Shuffling makes models slower to train
+   d) Demand data is already sorted by default
+
+2. A **lag feature** (e.g., last week's demand) is useful because:
+   a) It reduces the training set size
+   b) It captures temporal patterns and autocorrelation (correct)
+   c) It replaces the need for trend features
+   d) It removes seasonality from the data
+
+3. **Predictive maintenance** uses ML to:
+   a) Automate equipment purchasing
+   b) Identify which machines are most expensive
+   c) Predict equipment failure before it occurs to schedule proactive maintenance (correct)
+   d) Optimise the number of shifts per day
+
+4. What is the business benefit of reducing **false negatives** in a machine failure model?
+   a) Fewer unnecessary maintenance interventions
+   b) Lower probability of unexpected breakdowns and costly downtime (correct)
+   c) Better accuracy on the training set
+   d) Reduced energy consumption
+
+5. Which ML model type is most appropriate for **predicting a continuous quantity** like weekly demand?
+   a) Logistic Regression
+   b) K-Means Clustering
+   c) Random Forest Regressor (correct)
+   d) Isolation Forest
+
+---
+
+## Section 4.4 — Building End-to-End ML Solutions {#sec-44}
+
+Delivering an ML model as a business solution requires more than good accuracy.
+This section covers pipelines, model persistence, and performance monitoring.
+
+### Sklearn Pipelines
+
+A **Pipeline** chains preprocessing and modelling into a single reusable object.
+
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.metrics import classification_report
+import warnings; warnings.filterwarnings("ignore")
+
+np.random.seed(42)
+n = 800
+
+# Re-create loan dataset
+df_loan_final = pd.DataFrame({
+    "Income"         : np.random.normal(55_000, 20_000, n).clip(20_000, 150_000).round(-2),
+    "Loan_Amount"    : np.random.normal(25_000, 10_000, n).clip(5_000, 80_000).round(-2),
+    "Credit_Score"   : np.random.randint(500, 850, n),
+    "Age"            : np.random.randint(22, 65, n),
+    "Employment_Yrs" : np.random.randint(0, 30, n),
+})
+df_loan_final["Approved"] = (
+    (df_loan_final["Credit_Score"] > 650) &
+    (df_loan_final["Income"] > 40_000)
+).astype(int)
+
+X = df_loan_final.drop(columns="Approved")
+y = df_loan_final["Approved"]
+
+X_tr, X_te, y_tr, y_te = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y)
+
+# Build pipeline: scale → classify
+pipe = Pipeline([
+    ("scaler", StandardScaler()),
+    ("clf",    RandomForestClassifier(n_estimators=100, random_state=42))
+])
+
+pipe.fit(X_tr, y_tr)
+y_pred_pipe = pipe.predict(X_te)
+
+from sklearn.metrics import accuracy_score
+print(f"Pipeline Accuracy: {accuracy_score(y_te, y_pred_pipe):.2%}")
+```
+
+### Hyperparameter Tuning with GridSearchCV
+
+```{python}
+param_grid = {
+    "clf__n_estimators" : [50, 100, 200],
+    "clf__max_depth"    : [3, 5, None],
+}
+
+gs = GridSearchCV(pipe, param_grid, cv=5, scoring="accuracy", n_jobs=-1)
+gs.fit(X_tr, y_tr)
+
+print("Best parameters:", gs.best_params_)
+print(f"Best CV Accuracy: {gs.best_score_:.2%}")
+print(f"Test Accuracy   : {gs.score(X_te, y_te):.2%}")
+```
+
+### Saving and Loading Models
+
+```{python}
+import joblib
+
+# Save the trained pipeline to disk
+joblib.dump(gs.best_estimator_, "loan_approval_model.pkl")
+print("Model saved to loan_approval_model.pkl")
+
+# Load and use the model
+loaded_model = joblib.load("loan_approval_model.pkl")
+
+# Predict for a new applicant
+new_applicant = pd.DataFrame([{
+    "Income"         : 62_000,
+    "Loan_Amount"    : 20_000,
+    "Credit_Score"   : 710,
+    "Age"            : 35,
+    "Employment_Yrs" : 8
+}])
+
+prediction  = loaded_model.predict(new_applicant)[0]
+probability = loaded_model.predict_proba(new_applicant)[0, 1]
+
+outcome = "APPROVED" if prediction == 1 else "DENIED"
+print(f"\nLoan Application Decision: {outcome}")
+print(f"Approval Probability: {probability:.2%}")
+```
+
+### Model Monitoring Checklist
+
+Once a model is deployed, track these indicators:
+
+| Indicator | What to Monitor | Alert Threshold |
+|---|---|---|
+| **Accuracy drift** | Monthly accuracy vs baseline | Drop > 5 % |
+| **Data drift** | Distribution shift in features | KS-test p < 0.05 |
+| **Prediction drift** | Change in predicted class ratio | > 10 % deviation |
+| **Business KPI** | Revenue / churn / default rate | Defined by business |
+
+```{python}
+# Simulate model performance monitoring over time
+np.random.seed(3)
+months        = pd.date_range("2024-01", periods=12, freq="MS")
+baseline_acc  = 0.87
+acc_over_time = np.cumsum(np.random.normal(0, 0.01, 12)).clip(-0.15, 0)
+monthly_acc   = (baseline_acc + acc_over_time).clip(0.5, 1)
+
+fig, ax = plt.subplots(figsize=(10, 4))
+ax.plot(months, monthly_acc, "b-o", label="Monthly Accuracy")
+ax.axhline(y=baseline_acc,         color="green", linestyle="--", label="Baseline")
+ax.axhline(y=baseline_acc - 0.05,  color="red",   linestyle="--", label="Alert threshold")
+ax.fill_between(months, monthly_acc, baseline_acc - 0.05,
+                where=(monthly_acc < baseline_acc - 0.05),
+                alpha=0.3, color="red", label="Below threshold")
+ax.set_title("Model Performance Monitoring — Monthly Accuracy")
+ax.set_ylabel("Accuracy")
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+### Student Task 4.4
+
+Build a complete end-to-end ML solution for the **customer churn** dataset:
+
+1. Create a `Pipeline` that includes `StandardScaler` and `RandomForestClassifier`.
+2. Use `GridSearchCV` to tune `n_estimators` (50, 100) and `max_depth` (3, 5, 10).
+3. Save the best model using `joblib`.
+4. Load the saved model and make a prediction for a **new, unseen customer** you define.
+5. Summarise the model in one paragraph as if you were presenting to a non-technical business manager.
+
+```{python}
+# Your code here
+```
+
+---
+
+### Evaluation Questions 4.4
+
+1. What is the primary benefit of using an sklearn `Pipeline`?
+   a) It automatically improves model accuracy
+   b) It chains preprocessing and modelling into one reproducible object (correct)
+   c) It replaces the need for cross-validation
+   d) It speeds up data loading
+
+2. In `GridSearchCV`, the parameter `cv=5` means:
+   a) Only 5 hyperparameter combinations are tested
+   b) The model is evaluated using 5-fold cross-validation (correct)
+   c) Training runs for 5 epochs
+   d) The best 5 features are selected
+
+3. **Data drift** occurs when:
+   a) The model's code has a bug
+   b) The distribution of input features changes over time (correct)
+   c) The model is retrained too frequently
+   d) The training data has too many rows
+
+4. Which `joblib` function saves a trained model to disk?
+   a) `joblib.save()`
+   b) `joblib.export()`
+   c) `joblib.store()`
+   d) `joblib.dump()` (correct)
+
+5. Why should a deployed ML model be **retrained periodically**?
+   a) To increase the size of the training dataset automatically
+   b) Because older models always have bugs that need fixing
+   c) Because real-world data distributions change over time, causing model performance to degrade (correct)
+   d) sklearn models expire after 12 months
+
+---
+
+# Midterm Exam Preparation {#sec-midterm}
+
+The midterm covers **Modules 1 and 2**. Use the following practice problems
+to prepare.
+
+## Sample Practice Problems
+
+### Practice 1 — Python Fundamentals
+
+```{python}
+# Problem: Complete the function below
+def categorise_customer(annual_spend, years_as_customer):
+    """
+    Return a customer tier based on:
+    - Platinum : spend >= 50_000 OR tenure >= 10 years
+    - Gold     : spend >= 20_000 OR tenure >= 5 years
+    - Silver   : spend >= 5_000
+    - Bronze   : all others
+    """
+    # YOUR CODE HERE
+    pass
+
+# Test cases
+test_cases = [
+    (60_000, 3),   # Platinum (spend)
+    (15_000, 12),  # Platinum (tenure)
+    (25_000, 4),   # Gold
+    (7_000,  2),   # Silver
+    (1_200,  1),   # Bronze
+]
+
+for spend, tenure in test_cases:
+    tier = categorise_customer(spend, tenure)
+    print(f"Spend=${spend:>7,}, Tenure={tenure:>2}y → {tier}")
+```
+
+### Practice 2 — Data Cleaning
+
+```{python}
+# Messy dataset — clean it
+import pandas as pd
+import numpy as np
+
+np.random.seed(77)
+df_messy = pd.DataFrame({
+    "product_id" : range(1, 51),
+    "price"      : np.where(np.random.rand(50) < 0.10, np.nan,
+                             np.random.uniform(10, 500, 50).round(2)),
+    "category"   : np.where(np.random.rand(50) < 0.08, np.nan,
+                             np.random.choice(["A","B","C","D"], 50)),
+    "rating"     : np.where(np.random.rand(50) < 0.12, np.nan,
+                             np.random.uniform(1, 5, 50).round(1)),
+    "units_sold" : np.random.randint(0, 1000, 50),
+})
+
+print("Missing values:")
+print(df_messy.isnull().sum())
+
+# Clean the dataset
+df_clean = df_messy.copy()
+# Fill numeric missing values with median
+df_clean["price"]  = df_clean["price"].fillna(df_clean["price"].median())
+df_clean["rating"] = df_clean["rating"].fillna(df_clean["rating"].median())
+# Fill categorical missing values with mode
+df_clean["category"] = df_clean["category"].fillna(df_clean["category"].mode()[0])
+
+print("\nAfter cleaning:")
+print(df_clean.isnull().sum())
+```
+
+### Practice 3 — EDA
+
+```{python}
+import matplotlib.pyplot as plt
+
+# Summary statistics and visualisation
+print(df_clean.describe().round(2))
+
+fig, axes = plt.subplots(1, 3, figsize=(14, 4))
+
+# Distribution of price
+axes[0].hist(df_clean["price"], bins=20, color="steelblue", edgecolor="white")
+axes[0].set_title("Price Distribution")
+axes[0].set_xlabel("Price ($)")
+
+# Average rating by category
+avg_rating = df_clean.groupby("category")["rating"].mean().sort_values(ascending=False)
+axes[1].bar(avg_rating.index, avg_rating.values, color="coral", edgecolor="white")
+axes[1].set_title("Average Rating by Category")
+axes[1].set_xlabel("Category")
+axes[1].set_ylabel("Rating")
+
+# Scatter: price vs units sold
+axes[2].scatter(df_clean["price"], df_clean["units_sold"],
+                alpha=0.5, color="teal")
+axes[2].set_title("Price vs Units Sold")
+axes[2].set_xlabel("Price ($)")
+axes[2].set_ylabel("Units Sold")
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+# Summary and Key Takeaways {#sec-summary}
+
+| Module | Core Skills |
+|---|---|
+| **1 — Python Fundamentals** | Variables, conditionals, loops, data structures, NumPy, Pandas |
+| **2 — EDA** | Missing data, scaling, feature selection, visualisation |
+| **3 — Machine Learning** | Workflow, regression, classification, trees, forests |
+| **4 — Business Applications** | Segmentation, churn, credit, demand forecasting, deployment |
+
+## Learning Path Forward
+
+1. **Practice daily**: Kaggle has free datasets and competitions.
+2. **Apply to your domain**: Every industry has data — find problems in your area.
+3. **Communicate clearly**: A model you cannot explain to a business audience has limited value.
+4. **Stay ethical**: Understand bias, fairness, and regulatory requirements (GDPR, Equal Credit Opportunity Act).
+
+---
+
+*These lecture notes were produced using [Quarto](https://quarto.org).
+Code examples use Python 3.10+ with scikit-learn 1.x, Pandas 2.x, and NumPy 1.x.*
