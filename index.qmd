@@ -1,6 +1,5 @@
 ---
 title: "Machine Learning for Business Analytics"
-subtitle: "Lecture Notes — Python & Machine Learning for Business Students"
 date: today
 format:
   html:
