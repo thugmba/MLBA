@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python -c \":*)",
-      "Bash(python _add_analogies.py)"
-    ]
-  }
-}
