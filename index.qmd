@@ -3085,5 +3085,4 @@ plt.show()
 
 ---
 
-*These lecture notes were produced using [Quarto](https://quarto.org).
-Code examples use Python 3.10+ with scikit-learn 1.x, Pandas 2.x, and NumPy 1.x.*
+[Jupyter Notebooks](https://github.com/thugmba/MLBA)
